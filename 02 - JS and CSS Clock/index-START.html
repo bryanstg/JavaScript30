@@ -98,7 +98,7 @@
       const actualSeconds = date.getSeconds();
       let secondsToDegree = (actualSeconds * 360)/ 60;
       if (secondsToDegree == 59 || secondsToDegree == 0) {
-        //secondsHand.style.transition = "paused";
+        secondsHand.style.transition = "paused";
         secondsHand.style.transform = `rotate(${secondsToDegree + 90 }deg)`;
       } else {
         secondsHand.style.transform = `rotate(${secondsToDegree + 90 }deg)`; //Add 90deg to start from 0deg. Check class .hand property transform
