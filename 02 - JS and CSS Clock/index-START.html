@@ -62,13 +62,68 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7., 0.58, 1);
+    }
+    .min-hand {
+      width: 40%;
+      left: 10%;
+    }
+    .hour-hand {
+      width: 30%;
+      left: 20%;
     }
 
   </style>
 
   <script>
+    
+    function handleHours (date) {
+      //get current hour and set hours hand to current hour position.
+      const hoursHand = document.querySelector(".hour-hand");
+      const actualHours = date.getHours();
+      let hoursToDegree = (actualHours * 360) / 12;
+      if (hoursToDegree == 12 || hoursToDegree == 1) {
+        hoursHand.style.transition = "paused";
+      }
+      hoursHand.style.transform = `rotate(${hoursToDegree + 90}deg)`; //Add 90deg to start from 0deg. Check class .hand property transform
+    }
 
 
+    function handleSeconds (date) {
+      //Handle seconds hand
+      const secondsHand = document.querySelector(".second-hand");
+      const actualSeconds = date.getSeconds();
+      let secondsToDegree = (actualSeconds * 360)/ 60;
+      if (secondsToDegree == 59 || secondsToDegree == 0) {
+        //secondsHand.style.transition = "paused";
+        secondsHand.style.transform = `rotate(${secondsToDegree + 90 }deg)`;
+      } else {
+        secondsHand.style.transform = `rotate(${secondsToDegree + 90 }deg)`; //Add 90deg to start from 0deg. Check class .hand property transform
+      }
+    }
+
+
+    function handleMinutes (date) {
+      //handle minutes hand
+      const minutesHand = document.querySelector(".min-hand");
+      const actualMinutes = date.getMinutes();
+      let minutesToDegree = (actualMinutes * 360 / 60);
+      minutesHand.style.transform =  `rotate(${minutesToDegree + 90}deg)`;
+    }
+
+
+    function setDate () {
+      const dateNow = new Date();
+      handleSeconds(dateNow);
+      handleHours(dateNow);
+      handleMinutes(dateNow);
+
+    }
+    
+    window.setInterval(setDate, 1000)
   </script>
 </body>
 </html>
